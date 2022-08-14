@@ -22,4 +22,4 @@ if __name__ == "__wsgi__":
     app = create_app()
 
 if __name__ == "__main__":
-    create_app().run(ssl_context='adhoc')
+    create_app().run()

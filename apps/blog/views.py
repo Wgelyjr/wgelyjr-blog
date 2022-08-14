@@ -2,7 +2,7 @@ import sqlalchemy.exc
 from flask import Blueprint, render_template, request, flash, session, redirect
 from database.database import *
 import hashlib
-from apps.blog.models import *
+from database.blog import *
 
 blog = Blueprint('blog', __name__, template_folder="templates")
 
@@ -25,8 +25,8 @@ def login():
         except sqlalchemy.exc.NoResultFound:
             flash('incorrect username or password. Please try again.')
             return render_template('login.html')
-        passwordhash = hashlib.md5(password.encode(encoding='UTF-8', errors='strict') + salt).digest()
-        if passwordhash == userobj.password:
+        password_hash = hashlib.md5(password.encode(encoding='UTF-8', errors='strict') + salt).digest()
+        if password_hash == userobj.password:
             session['logged_in'] = True
             session['userid'] = userobj.id
             flash('Log-in successful.')
