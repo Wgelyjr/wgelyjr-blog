@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-sm border pt-2 pb-2">
+    <div class="row justify-content-between">
+        <div class="col">
+            <h1>
+                {{post.title}}
+            </h1>
+        </div>
+        <div class="col-1">
+            <div class="container pt-2">
+                <a href="/editpost/{{ post.id }}" class="btn btn-secondary btn active" role="button"
+                   aria-pressed="true">
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pt-5 pb-3">
+    <div class="jumbotron jumbotron-fluid">
+        <p class="text-break">
+            {% autoescape false %}
+            {{ post.body.replace('\n', '<br>') }}
+            {% endautoescape %}
+        </p>
+        <p>Posted: {{post.date[0:2] + '/' + post.date[2:4] + '/' + post.date[4:8]}}</p>
+        <hr class="my-4">
+    </div>
+</div>
+<div class="row justify-content-between">
+    <div class="col">
+        <h1> Comments:</h1>
+    </div>
+    <div class="col-2">
+        <a href="/newcomment/{{ post.id }}" class="btn btn-dark">Add Comment</a>
+    </div>
+</div>
+{% for comment in comments %}
+<div class="container pt-3">
+    <div class="row justify-content-between">
+        <div class="col">
+            <div class="jumbotron">
+                <p class="lead">{{comment.body}}</p>
+                <p>Posted:
+                    {{comment.date[0:2] + '/' + post.date[2:4] + '/' + post.date[4:8] + " " + post.time}}
+                </p>
+                <p>
+                    Author:
+                    {% if comment.author %} Admin {% else %} Anonymous {% endif %}
+                </p>
+                <hr class="my-4">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

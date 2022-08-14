@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-sm border pt-2 pb-2">
+    <div class="row justify-content-between">
+        <div class="col">
+            <h1>
+                {{post.title}}
+            </h1>
+        </div>
+        <div class="col-1">
+            <div class="container pt-2">
+                <a href="/editpost/{{ post.id }}" class="btn btn-secondary btn active" role="button"
+                   aria-pressed="true">
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pt-5 pb-3">
+    <div class="jumbotron jumbotron-fluid">
+        <p class="text-break">
+            {% autoescape false %}
+            {{ post.body.replace('\n', '<br>') }}
+            {% endautoescape %}
+        </p>
+        <p>Posted: {{post.date[0:2] + '/' + post.date[2:4] + '/' + post.date[4:8]}}</p>
+        <hr class="my-4">
+    </div>
+</div>
+
+<form action="/newcomment/{{ post.id }}" method="post">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="commentbody">Add Comment:</label>
+            <textarea class="form-control" name="commentbody" id="commentbody" rows="10"></textarea>
+        </div>
+        <div class="container-sm pt-2 pb-2">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="tab-pane fade show active" id="login" role="tabpanel">
+    <form action="newuser" method="post">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter Username" required name="username">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Enter Email" required name="email">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required name="password">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="passwordconfirm">Confirm Password</label>
+            <input type="password" class="form-control" id="passwordconfirm" placeholder="Confirm Password" required
+                   name="passwordconfirm">
+        </div>
+        <div class="container-sm pt-2 pb-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

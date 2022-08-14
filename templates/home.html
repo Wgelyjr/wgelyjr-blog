@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-sm border pt-2 pb-2">
+<h1>
+    All Posts
+</h1>
+</div>
+{% for post in posts %}
+<div class="container pt-3">
+    <div class="jumbotron">
+        <h1 class="display-4">{{post.title}}</h1>
+        <p class="lead">{{post.body[0:100] + ' . . . '}}</p>
+        <p>Posted: {{post.date[0:2] + '/' + post.date[2:4] + '/' + post.date[4:8]}}</p>
+        <a class="btn btn-dark btn-lg" href="/posts/{{post.id}}" role="button">See Post</a>
+        <hr class="my-4">
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}
