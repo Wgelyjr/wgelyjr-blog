@@ -4,7 +4,7 @@ from database.database import *
 import hashlib
 from database.blog import *
 
-blog = Blueprint('blog', __name__, template_folder="templates")
+blog = Blueprint('blog', __name__, template_folder="templates", url_prefix='/blog')
 
 salt = 'Sally sells seashells by the seashore!'.encode(encoding='UTF-8', errors='strict')
 
@@ -39,26 +39,6 @@ def login():
         return render_template('login.html')
 
 
-@blog.route('/newuser', methods=['GET', 'POST'])
-def newuser():
-    if 'logged_in' not in session:
-        flash('Only admins can create users.')
-        return redirect('/')
-    if request.method == 'GET':
-        return render_template('newuser.html')
-    if request.method == 'POST':
-        password = request.form['password']
-        username = request.form['username']
-        email = request.form['email']
-        password_hash = hashlib.md5(password.encode(encoding='UTF-8', errors='strict') + salt)
-        newuser = User(name=username, email=email, password=password_hash.digest())
-        db.session.add(newuser)
-        db.session.commit()
-        flash(f'User "{username}" created!')
-        session['logged_in'] = True
-        return render_template('base.html')
-
-
 @blog.route('/newpost', methods=['GET', 'POST'])
 def newpost():
     if 'logged_in' not in session:
@@ -81,7 +61,7 @@ def newpost():
 @blog.route('/posts/<id>')
 def showpost(id):
     post = Posts.query.filter_by(id=id).one()
-    comments = Comments.query.filter_by(postid=id)
+    comments = Comments.query.filter_by(post_id=id)
     return render_template('post.html', post=post, comments=comments)
 
 
@@ -116,21 +96,22 @@ def deletepost(id):
     return redirect('/')
 
 
-@blog.route('/newcomment/<postid>', methods=['GET', 'POST'])
-def newcomment(postid):
+@blog.route('/newcomment/<post_id>', methods=['GET', 'POST'])
+def newcomment(post_id):
     if request.method == 'GET':
-        post = Posts.query.filter_by(id=postid).one()
+        post = Posts.query.filter_by(id=post_id).one()
         return render_template('newcomment.html', post=post)
     if request.method == 'POST':
         if 'userid' in session:
             authorid = session['userid']
         else:
             authorid = None
-        newcomment = Comments(postid=postid, author=authorid, body=request.form['commentbody'])
+        newcomment = Comments(post_id=post_id, author=authorid, body=request.form['commentbody'])
         db.session.add(newcomment)
         db.session.commit()
         flash('Comment posted!')
-        return redirect(f'/posts/{postid}')
+        return redirect(f'/posts/{post_id}')
+
 
 @blog.route('/about')
 def about():

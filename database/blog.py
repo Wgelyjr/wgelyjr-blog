@@ -3,7 +3,7 @@ from database.database import db
 
 
 class Posts(db.Model):
-    __tablename__ = "posts"
+    __tablename__ = "blog.posts"
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, nullable=False)
     title = db.Column(db.String)
@@ -21,9 +21,9 @@ class Posts(db.Model):
 
 
 class Comments(db.Model):
-    __tablename__ = "comments"
+    __tablename__ = "blog.comments"
     id = db.Column(db.Integer, primary_key=True)
-    postid = db.Column(db.Integer)
+    post_id = db.Column(db.Integer)
     author = db.Column(db.Integer)
     body = db.Column(db.String)
     date = db.Column(db.Text, nullable=False)
@@ -31,7 +31,7 @@ class Comments(db.Model):
 
     def __init__(self, post_id, author, body):
         now = datetime.datetime.now()
-        self.postid = post_id  # the id of the post that the comment is applied to
+        self.post_id = post_id  # the id of the post that the comment is applied to
         self.author = author
         self.body = body
         self.date = now.strftime('%m%d%Y')
