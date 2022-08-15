@@ -16,7 +16,7 @@ def create_app():
     database.init_app(app)
     # register blueprint
 
-    app.register_blueprint(blog)
+    app.register_blueprint(blog, url_prefix='/blog')
     app.register_blueprint(admin)
     app.register_blueprint(home)
     return app

@@ -4,7 +4,7 @@ from database.database import *
 import hashlib
 from database.blog import *
 
-blog = Blueprint('blog', __name__, template_folder="templates", url_prefix='/blog')
+blog = Blueprint('blog', __name__, template_folder="templates")
 
 salt = 'Sally sells seashells by the seashore!'.encode(encoding='UTF-8', errors='strict')
 

@@ -1,25 +1,31 @@
-{ % extends 'base.html' % }
+{% extends 'base.html' %}
 
-{ % block content % }
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Wgelyjr-Blog; Liam's personal journal.</p>
-    <a href="/blog" class="btn btn-dark">Go somewhere</a>
-  </div>
+{% block content %}
+<div class="container pb-4 pt-4">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Blog</h5>
+            <p class="card-text">Wgelyjr-Blog; Liam's internet journal.</p>
+            <a href="/blog" class="btn btn-dark">Visit the Blog</a>
+        </div>
+    </div>
 </div>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Deluge; privileged access to Liam's Plex server.</p>
-    <a href="/deluge" class="btn btn-dark">Go somewhere</a>
-  </div>
+<div class="container pb-4 pt-4">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Deluge</h5>
+            <p class="card-text">Deluge; privileged access to Liam's Plex server.</p>
+            <a href="/deluge" class="btn btn-dark">Visit Deluge</a>
+        </div>
+    </div>
+    </div>
+<div class="container pb-4 pt-4">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Admin</h5>
+            <p class="card-text">Admin settings; create new users, etc.</p>
+            <a href="/admin" class="btn btn-dark">Visit Admin</a>
+        </div>
+    </div>
 </div>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Admin settings.</p>
-    <a href="/admin" class="btn btn-dark">Go somewhere</a>
-  </div>
-</div>
-{ % endblock content % }
+{% endblock content %}

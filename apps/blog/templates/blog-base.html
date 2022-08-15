@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row align-items-start">
+    <div class="col">
+        <div class="container border pt-2">
+            {% block blog %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="container-md border pt-2">
+            <div class="container-sm border pt-2 pb-2">
+                <h1>Post Index:</h1>
+            </div>
+            <div class="container-sm pt-3 pb-2">
+                {% if postindex %}
+                {% for row in postindex %}
+                <p><a href="/blog/posts/{{row.id}}">{{ row.title }}</a></p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
