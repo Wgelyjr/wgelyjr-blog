@@ -12,7 +12,7 @@ salt = 'Sally sells seashells by the seashore!'.encode(encoding='UTF-8', errors=
 @blog.route('/')
 def home():
     posts = db.session.query(Posts).order_by(Posts.id.desc())
-    return render_template('home.html', posts=posts)
+    return render_template('blog-home.html', posts=posts)
 
 
 @blog.route('/login', methods=['GET', 'POST'])
@@ -45,7 +45,7 @@ def newpost():
         flash('Only admins can create a new post.')
         return redirect('/')
     if request.method == 'GET':
-        return render_template('newpost.html')
+        return render_template('blog-newpost.html')
     if request.method == 'POST':
         newpost = Posts(
             title=request.form['title'],
@@ -62,7 +62,7 @@ def newpost():
 def showpost(id):
     post = Posts.query.filter_by(id=id).one()
     comments = Comments.query.filter_by(post_id=id)
-    return render_template('post.html', post=post, comments=comments)
+    return render_template('blog-post.html', post=post, comments=comments)
 
 
 @blog.route('/editpost/<id>', methods=['GET', 'POST'])
@@ -72,7 +72,7 @@ def editpost(id):
         return redirect(f'/posts/{id}')
     if request.method == 'GET':
         post = Posts.query.filter_by(id=id).one()
-        return render_template('editpost.html', post=post)
+        return render_template('blog-editpost.html', post=post)
     if request.method == 'POST':
         newtitle = request.form['title']
         newbody = request.form['postbody']
@@ -100,7 +100,7 @@ def deletepost(id):
 def newcomment(post_id):
     if request.method == 'GET':
         post = Posts.query.filter_by(id=post_id).one()
-        return render_template('newcomment.html', post=post)
+        return render_template('blog-newcomment.html', post=post)
     if request.method == 'POST':
         if 'userid' in session:
             authorid = session['userid']
@@ -115,7 +115,7 @@ def newcomment(post_id):
 
 @blog.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('blog-about.html')
 
 
 @blog.context_processor

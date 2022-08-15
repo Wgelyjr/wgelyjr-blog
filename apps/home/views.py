@@ -5,4 +5,4 @@ home = Blueprint('home', __name__, template_folder="templates")
 
 @home.route('/')
 def admin_home():
-    return 'this is home - append /blog, /deluge, or /admin to get somewhere. . .'
+    return render_template('home-blog-home.html')
