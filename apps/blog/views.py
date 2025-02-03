@@ -3,17 +3,18 @@ from flask import Blueprint, render_template, request, flash, session, redirect
 from database.database import *
 import hashlib
 from database.blog import *
+from database.database import User
+from config import Config
 
 blog = Blueprint('blog', __name__, template_folder="templates")
 
-salt = 'Sally sells seashells by the seashore!'.encode(encoding='UTF-8', errors='strict')
+salt = Config.SECRET_KEY.encode()
 
 
 @blog.route('/')
 def home():
     posts = db.session.query(Posts).order_by(Posts.id.desc())
     return render_template('home.html', posts=posts)
-
 
 @blog.route('/login', methods=['GET', 'POST'])
 def login():
